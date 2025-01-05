@@ -49,20 +49,20 @@ learning_type = st.sidebar.radio(
 if learning_type == "Supervised Learning":
     with st.sidebar.expander("Pilih Model dan Dataset", expanded=True):
         model_choice = st.selectbox(
-            "Pilih Model:",
+            "Model:",
             ["Random Forest Regression", "Perceptron", "SVM"]
         )
         dataset_choice = st.selectbox(
-            "Pilih Dataset:",
+            "Dataset:",
             ["Fish", "Fruit", "Pumpkin Seeds"]
         )
 
     if dataset_choice == "Fish":
-        st.title(f"Prediksi Jenis Ikan Menggunakan Algoritma {model_choice}")
+        st.title(f"Prediksi Ikan Algoritma {model_choice}")
         with st.expander("Masukkan Data", expanded=True):
-            length = st.number_input("Panjang (cm):", min_value=0.0, step=0.1)
-            weight = st.number_input("Berat (gram):", min_value=0.0, step=0.1)
-            wlratio = st.number_input("Rasio Panjang/Lebar:", min_value=0.0, step=0.1)
+            length = st.number_input("Length (cm):", min_value=0.0, step=0.1)
+            weight = st.number_input("Weight (gram):", min_value=0.0, step=0.1)
+            wlratio = st.number_input("Weight Length Ratio:", min_value=0.0, step=0.1)
 
         model_path = {
             "Random Forest Regression": "rf_fish-scale.pkl",
@@ -70,20 +70,20 @@ if learning_type == "Supervised Learning":
             "SVM": "svm_fish-scale.pkl"
         }
 
-        if st.button("Prediksi Jenis Ikan"):
+        if st.button("Prediksi Ikan"):
             model = load_model(model_path.get(model_choice))
             input_data = np.array([[length, weight, wlratio]])
             hasil_prediksi = predict_with_model(model, input_data, label_mapping_fish)
             st.success(f"Hasil Prediksi: **{hasil_prediksi}**")
 
     elif dataset_choice == "Fruit":
-        st.title(f"Prediksi Jenis Buah Menggunakan Algoritma {model_choice}")
+        st.title(f"Prediksi Buah Algoritma {model_choice}")
         with st.expander("Masukkan Data", expanded=True):
             diameter = st.number_input("Diameter (cm):", min_value=0.0, step=0.1)
-            weight = st.number_input("Berat (gram):", min_value=0.0, step=0.1)
-            red = st.number_input("Nilai Red (RGB):", min_value=0.0, step=1.0)
-            green = st.number_input("Nilai Green (RGB):", min_value=0.0, step=1.0)
-            blue = st.number_input("Nilai Blue (RGB):", min_value=0.0, step=1.0)
+            weight = st.number_input("Weight (gram):", min_value=0.0, step=0.1)
+            red = st.number_input("Red (RGB):", min_value=0.0, step=1.0)
+            green = st.number_input("Green (RGB):", min_value=0.0, step=1.0)
+            blue = st.number_input("Blue (RGB):", min_value=0.0, step=1.0)
 
         model_path = {
             "Random Forest Regression": "rf_fruit-scale.pkl",
@@ -98,7 +98,7 @@ if learning_type == "Supervised Learning":
             st.success(f"Hasil Prediksi: **{hasil_prediksi}**")
 
     elif dataset_choice == "Pumpkin Seeds":
-        st.title(f"Prediksi Jenis Biji Labu Menggunakan Algoritma {model_choice}")
+        st.title(f"Prediksi Biji Labu Algoritma {model_choice}")
         with st.expander("Masukkan Data", expanded=True):
             area = st.number_input("Area:", min_value=0.0, step=0.1)
             perimeter = st.number_input("Perimeter:", min_value=0.0, step=0.1)
